@@ -12,17 +12,18 @@ def life_sequence(world,sleep=1):
     #print_world(world)
     #time.sleep(1)
 
-    for x in range(0,55555):
+    for x in range(1,55555):
 
         os.system('clear')
         print "Generation #",x
         print_world(world)
+        time.sleep(sleep)
+
         new_world = next_generation(world)
 
         if len(new_world) == 0:
             print "All dead at generation #",x
             break
-        time.sleep(sleep)
         world = new_world
 
 
@@ -30,11 +31,13 @@ def life_sequence(world,sleep=1):
 #world = [(1,0), (1,1), (1,2)]
 # R-Pentomino
 #world = [ (1,0),(2,0),(0,1),(1,1),(1,2) ]
+# Die Hard Step 128
+#world = [(0,0),(1,1),(2,1)]
 # Die Hard
-#world =  [ (0,1),(1,1),(1,2),(6,0),(5,2),(6,2),(7,2) ]
+world =  [ (0,1),(1,1),(1,2),(6,0),(5,2),(6,2),(7,2) ]
 # Bacon Stage1
-world= [(0,0),(0,1),(1,1),(1,0),(2,2),(2,3),(3,2),(3,3)]
-#life_sequence(world,sleep=1)
+#world= [(0,0),(0,1),(1,1),(1,0),(2,2),(2,3),(3,2),(3,3)]
+life_sequence(world,sleep=0)
 
 
 
@@ -47,6 +50,14 @@ class test_game_of_life(unittest.TestCase):
     # Solitarie cell that dies
     def test(self):
         self.assertEquals( next_generation( [(0,0)] ) , [] )
+
+    # Die Hard (Step 128)
+    def test(self):
+        self.assertEquals( next_generation( [(0,0),(1,1),(2,1)] ) , [] )
+
+    # Die Hard (Step 129) Two vertical cells together that dies
+    def test(self):
+        self.assertEquals( next_generation( [(0,0),(0,1)] ) , [] )
 
     # Block (https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#Examples_of_patterns)
     def test(self):

@@ -74,6 +74,8 @@ def next_generation(world):
         print new_world
         print print_world(new_world)
 
+    print new_world
+
     return new_world
 
 
@@ -112,13 +114,14 @@ def get_neighbours(world,cell):
 
 
 def find_corners(world):
-    top_left =  (0,0)
-    bottom_right = (0,0)
+    top_left =  world[0]
+    bottom_right = world[0]
+
 
     for item in world:
         if item[0] < top_left[0]:
             top_left = item[0],top_left[1]
-        if item[1] < bottom_right[1]:
+        if item[1] < top_left[1]:
             top_left = top_left[0],item[1]
     if DEBUG:
         print "Top Left",top_left
