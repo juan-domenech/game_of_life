@@ -1,10 +1,10 @@
 
 #
 # Die -> <2 neighbours
-# Die -> >3 neighbours
-# Born -> =3 neighbours
 # Survive -> =2 neighbours
 # Survive -> =3 neighbours
+# Die -> >3 neighbours
+# Born -> =3 neighbours
 #
 
 """
@@ -37,14 +37,12 @@ def next_generation(world):
 
         # Die -> <2 neighbours
         # Die -> >3 neighbours
-        if len(neighbours) < 2 or len(neighbours) > 3:
-            pass
-        else:
+        if not (len(neighbours) < 2 or len(neighbours) > 3 ) :
             new_world.append(item)
 
         # Survive -> =2 neighbours
         # Survive -> =3 neighbours
-        if len(neighbours) == 2 or len(neighbours) == 3:
+        if len(neighbours) == 2 or len(neighbours) == 3 :
             new_world.append(item)
 
         # Born -> =3 neighbours
@@ -55,15 +53,13 @@ def next_generation(world):
             for x in range( top_left[0]-1, bottom_right[0] +2 ):
 
                 if len( get_neighbours(world, (x,y) ) ) == 3:
-                    new_world.append((x,y))
+                    new_world.append( (x,y) )
                     if DEBUG:
-                        print "New cell: (",x,y,")"
+                        print "New cell: (",x,",",y,")"
                 #if (x,y) in world:
                 #    print "["+str(x)+","+str(y)+"]\t",
                 #else:
                 #    print "("+str(x)+","+str(y)+")\t",
-
-    new_world = sorted ( list(set( new_world )) )
 
     #print
     #print_world(new_world)
@@ -71,8 +67,12 @@ def next_generation(world):
     if len(new_world) == 0:
         print "No cells survived!"
 
+    new_world = sorted ( list(set( new_world )) )
+
     if DEBUG:
+        print "Output:"
         print new_world
+        print print_world(new_world)
 
     return new_world
 
@@ -142,7 +142,7 @@ def print_world(world):
 
     ex = ''
 
-    print 'World: Population:',len(world),"  X-Axis Size:', abs(top_left[0]) + abs(bottom_right[0]+1),'  Y-Axis Size:', abs(top_left[1]) + abs(bottom_right[1]+1)
+    print 'World: Population:',len(world),'  X-Axis Size:', abs(top_left[0]) + abs(bottom_right[0]+1),'  Y-Axis Size:', abs(top_left[1]) + abs(bottom_right[1]+1)
 
     for y in range( top_left[1], bottom_right[1] +1 ):
 
