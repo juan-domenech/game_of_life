@@ -1,4 +1,7 @@
+import time
+import os
 
+# Rules
 #
 # Die -> <2 neighbours
 # Survive -> =2 neighbours
@@ -7,6 +10,7 @@
 # Born -> =3 neighbours
 #
 
+# Coordinates system: (0,0) = center of the world
 """
 (-1,-1) (0,-1) (1,-1)
 
@@ -29,7 +33,6 @@ def next_generation(world):
         print "Current Generation"
         print_world(world)
 
-
     for item in world:
 
         # Get Neighbours
@@ -45,26 +48,21 @@ def next_generation(world):
         if len(neighbours) == 2 or len(neighbours) == 3 :
             new_world.append(item)
 
-        # Born -> =3 neighbours
-        top_left,bottom_right = find_corners(world)
+    # Born -> =3 neighbours
+    top_left,bottom_right = find_corners(world)
 
-        for y in range( top_left[1]-1, bottom_right[1] +2 ):
+    for y in range( top_left[1]-1, bottom_right[1] +2 ):
 
-            for x in range( top_left[0]-1, bottom_right[0] +2 ):
+        for x in range( top_left[0]-1, bottom_right[0] +2 ):
 
+            if (x,y) not in world:
                 if len( get_neighbours(world, (x,y) ) ) == 3:
                     new_world.append( (x,y) )
                     if DEBUG:
                         print "New cell: (",x,",",y,")"
-                #if (x,y) in world:
-                #    print "["+str(x)+","+str(y)+"]\t",
-                #else:
-                #    print "("+str(x)+","+str(y)+")\t",
 
-    #print
-    #print_world(new_world)
 
-    if len(new_world) == 0:
+    if DEBUG and len(new_world) == 0:
         print "No cells survived!"
 
     new_world = sorted ( list(set( new_world )) )
@@ -143,11 +141,12 @@ def print_world(world):
     # Find corners to know how big our world is
     top_left,bottom_right = find_corners(world)
 
-    ex = ''
-
-    print 'World: Population:',len(world),'  X-Axis Size:', abs(top_left[0]) + abs(bottom_right[0]+1),'  Y-Axis Size:', abs(top_left[1]) + abs(bottom_right[1]+1)
+    print 'World: Population:',len(world),'  X-Axis Size:', abs(top_left[0]) + abs(bottom_right[0]+1),'  Y-Axis Size:', abs(top_left[1]) + abs(bottom_right[1]+1),' Corner Top-Left:',top_left,'Corner Bottom-Right:',bottom_right
+    print
 
     for y in range( top_left[1], bottom_right[1] +1 ):
+
+        ex = ''
 
         for x in range( top_left[0], bottom_right[0] +1 ):
 
@@ -162,10 +161,31 @@ def print_world(world):
                 else:
                     ex += ". "
         print ex
-        ex = ''
-
         print
+
     print
 
     return
 
+
+def life_sequence(world,sleep=1):
+
+    os.system('clear')
+
+    for x in range(1,55555):
+
+        os.system('clear')
+        print "Generation #",x
+        print
+        #print world
+        print_world(world)
+        time.sleep(sleep)
+
+        new_world = next_generation(world)
+
+        if len(new_world) == 0:
+            print "All dead at generation #",x
+            break
+        world = new_world
+
+    return

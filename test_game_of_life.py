@@ -1,44 +1,6 @@
 import unittest
-import time
-import os
 
-from game_of_life import next_generation, print_world
-
-def life_sequence(world,sleep=1):
-
-    os.system('clear')
-
-    #print "Generation # 0"
-    #print_world(world)
-    #time.sleep(1)
-
-    for x in range(1,55555):
-
-        os.system('clear')
-        print "Generation #",x
-        print_world(world)
-        time.sleep(sleep)
-
-        new_world = next_generation(world)
-
-        if len(new_world) == 0:
-            print "All dead at generation #",x
-            break
-        world = new_world
-
-
-# Blinker (period 2)
-#world = [(1,0), (1,1), (1,2)]
-# R-Pentomino
-#world = [ (1,0),(2,0),(0,1),(1,1),(1,2) ]
-# Die Hard Step 128
-#world = [(0,0),(1,1),(2,1)]
-# Die Hard
-world =  [ (0,1),(1,1),(1,2),(6,0),(5,2),(6,2),(7,2) ]
-# Bacon Stage1
-#world= [(0,0),(0,1),(1,1),(1,0),(2,2),(2,3),(3,2),(3,3)]
-life_sequence(world,sleep=0)
-
+from game_of_life import next_generation, life_sequence
 
 
 class test_game_of_life(unittest.TestCase):
@@ -50,14 +12,6 @@ class test_game_of_life(unittest.TestCase):
     # Solitarie cell that dies
     def test(self):
         self.assertEquals( next_generation( [(0,0)] ) , [] )
-
-    # Die Hard (Step 128)
-    def test(self):
-        self.assertEquals( next_generation( [(0,0),(1,1),(2,1)] ) , [] )
-
-    # Die Hard (Step 129) Two vertical cells together that dies
-    def test(self):
-        self.assertEquals( next_generation( [(0,0),(0,1)] ) , [] )
 
     # Block (https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#Examples_of_patterns)
     def test(self):
@@ -75,11 +29,41 @@ class test_game_of_life(unittest.TestCase):
     def test(self):
         self.assertEquals( next_generation( sorted ( [(0, 1), (1, 1), (2, 1)] ) ) , sorted( [(1,0), (1,1), (1,2)] ) )
 
-    # Beacon Stage #1 (https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#Examples_of_patterns)
+    # Beacon Stage #1
     def test(self):
         self.assertEquals( next_generation( sorted ( [(0,0),(0,1),(1,1),(1,0),(2,2),(2,3),(3,2),(3,3)] ) ) , sorted( [(0,0),(0,1),(1,0),(2,3),(3,2),(3,3)] ) )
 
-    # Beacon Stage #2 (https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#Examples_of_patterns)
+    # Beacon Stage #2
     def test(self):
         self.assertEquals( next_generation( sorted ( [(0,0),(0,1),(1,0),(2,3),(3,2),(3,3)] ) ) , sorted( [(0,0),(0,1),(1,1),(1,0),(2,2),(2,3),(3,2),(3,3)] ) )
+
+    # Die Hard (Stage 12)
+    def test(self):
+        self.assertEquals( next_generation( sorted ( [(0, 1), (0, 2), (1, 1), (1, 2), (2, 1), (2, 2), (3, 1), (3, 2), (3, 3), (5, -1), (5, 5), (6, -1), (6, 5), (7, -1), (7, 5), (9, 1), (9, 2), (9, 3)] ) ) , sorted( [(0, 1), (0, 2), (1, 0), (1, 3), (2, 0), (3, 1), (3, 3), (4, 2), (6, -2), (6, -1), (6, 0), (6, 4), (6, 5), (6, 6), (8, 2), (9, 2), (10, 2)] ) )
+
+    # Die Hard (Step 128)
+    def test(self):
+        self.assertEquals( next_generation( [(0,0),(1,1),(2,1)] ) , [] )
+
+    # Die Hard (Step 129) Two vertical cells together that dies
+    def test(self):
+        self.assertEquals( next_generation( [(0,0),(0,1)] ) , [] )
+
+
+# Blinker (period 2)
+#world = [(1,0), (1,1), (1,2)]
+
+# R-Pentomino
+world = [ (1,0),(2,0),(0,1),(1,1),(1,2) ]
+
+# Die Hard Step 128
+#world = [(0,0),(1,1),(2,1)]
+
+# Bacon Stage1
+#world= [(0,0),(0,1),(1,1),(1,0),(2,2),(2,3),(3,2),(3,3)]
+
+# Die Hard
+#world =  [ (0,1),(1,1),(1,2),(6,0),(5,2),(6,2),(7,2) ]
+
+#life_sequence(world,sleep=0)
 
