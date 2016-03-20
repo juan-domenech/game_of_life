@@ -1,7 +1,7 @@
 import time
 import os
 
-from game_of_life import next_generation, print_world
+from game_of_life import next_generation, print_world, import_RLE_seed
 
 def life_sequence(world,sleep=1):
 
@@ -40,5 +40,11 @@ world = [ (1,0),(2,0),(0,1),(1,1),(1,2) ]
 
 # Die Hard
 #world =  [ (0,1),(1,1),(1,2),(6,0),(5,2),(6,2),(7,2) ]
+
+# http://pentadecathlon.com/lifeNews/2005/02/new_methuselah_records.html
+acorn_RLE='bo$3bo$2o2b3o!'
+
+world = import_RLE_seed(acorn_RLE)
+print_world(world)
 
 life_sequence(world,sleep=0)

@@ -1,5 +1,3 @@
-import time
-import os
 
 # Rules
 #
@@ -71,8 +69,6 @@ def next_generation(world):
         print "Output:"
         print new_world
         print print_world(new_world)
-
-    print new_world
 
     return new_world
 
@@ -168,24 +164,46 @@ def print_world(world):
     return
 
 
-def life_sequence(world,sleep=1):
+#http://www.conwaylife.com/wiki/Run_Length_Encoded
+def import_RLE_seed(rle):
 
-    os.system('clear')
+    x = y = num = 0
+    world = []
+    doubleJump = False
 
-    for x in range(1,55555):
+    for item in range(0, len(rle) ) :
 
-        os.system('clear')
-        print "Generation #",x
-        print
-        #print world
-        print_world(world)
-        time.sleep(sleep)
+        if doubleJump:
+            doubleJump = False
+            print "doubleJump False"
+            continue
 
-        new_world = next_generation(world)
+        if rle[item] == 'o' :
+            # Alive cell
+            world.append( (x,y) )
+            x += 1
+        elif rle[item] == 'b' :
+            # Dead cell
+            x += 1
+        elif rle[item] in '0123456789' :
+            # Jump
+            for jump in range(0, int(rle[item]) ) :
+                if rle[item+1] == 'o':
+                    world.append( (x,y) )
+                x += 1
+            print "doubleJump True"
+            doubleJump = True
 
-        if len(new_world) == 0:
-            print "All dead at generation #",x
-            break
-        world = new_world
+        elif rle[item] == '$' :
+            # End of line
+            x = 0
+            y += 1
+        elif rle[item] == '!' :
+            # End of seed
+            pass
+        else:
+            print "ERROR: Unrecognized symbol",item
 
-    return
+
+
+    return world
