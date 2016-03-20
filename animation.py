@@ -1,7 +1,7 @@
 import time
 import os
 
-from game_of_life import next_generation, print_world, import_RLE_seed
+from game_of_life import next_generation, print_world, import_RLE_seed, prune
 
 def life_sequence(world,sleep=1):
 
@@ -14,6 +14,8 @@ def life_sequence(world,sleep=1):
         print
         #print world
         print_world(world)
+        #
+        world = prune(world,40)
         time.sleep(sleep)
 
         new_world = next_generation(world)
@@ -30,7 +32,7 @@ def life_sequence(world,sleep=1):
 #world = [(1,0), (1,1), (1,2)]
 
 # R-Pentomino
-world = [ (1,0),(2,0),(0,1),(1,1),(1,2) ]
+#world = [ (1,0),(2,0),(0,1),(1,1),(1,2) ]
 
 # Die Hard Step 128
 #world = [(0,0),(1,1),(2,1)]
@@ -41,10 +43,13 @@ world = [ (1,0),(2,0),(0,1),(1,1),(1,2) ]
 # Die Hard
 #world =  [ (0,1),(1,1),(1,2),(6,0),(5,2),(6,2),(7,2) ]
 
-# http://pentadecathlon.com/lifeNews/2005/02/new_methuselah_records.html
-acorn_RLE='bo$3bo$2o2b3o!'
+# Acorn http://pentadecathlon.com/lifeNews/2005/02/new_methuselah_records.html
+#rle='bo$3bo$2o2b3o!'
 
-world = import_RLE_seed(acorn_RLE)
+# Rabits http://pentadecathlon.com/lifeNews/methuselahs/
+rle='o3b3o$3o2bo$bo!'
+
+world = import_RLE_seed(rle)
 print_world(world)
 
 life_sequence(world,sleep=0)

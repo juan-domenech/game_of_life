@@ -153,9 +153,9 @@ def print_world(world):
                     print "("+str(x)+","+str(y)+")\t",
             else:
                 if (x,y) in world:
-                    ex += "* "
+                    ex += unichr(0x2588)+" "
                 else:
-                    ex += ". "
+                    ex += "  "
         print ex
         print
 
@@ -175,7 +175,7 @@ def import_RLE_seed(rle):
 
         if doubleJump:
             doubleJump = False
-            print "doubleJump False"
+            #print "doubleJump False"
             continue
 
         if rle[item] == 'o' :
@@ -191,7 +191,7 @@ def import_RLE_seed(rle):
                 if rle[item+1] == 'o':
                     world.append( (x,y) )
                 x += 1
-            print "doubleJump True"
+            #print "doubleJump True"
             doubleJump = True
 
         elif rle[item] == '$' :
@@ -204,6 +204,9 @@ def import_RLE_seed(rle):
         else:
             print "ERROR: Unrecognized symbol",item
 
-
-
     return world
+
+
+# Optionally remove distant cells to avoid gliders proliferation
+def prune(world, limit = 50):
+    return [cell for cell in world if abs(cell[0]) < limit and abs(cell[1]) < limit ]
