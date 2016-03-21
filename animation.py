@@ -7,6 +7,9 @@ def life_sequence(world,sleep=1):
 
     os.system('clear')
 
+    last_body_count = 0
+    counter = 0
+
     for x in range(1,55555):
 
         os.system('clear')
@@ -24,6 +27,14 @@ def life_sequence(world,sleep=1):
             print "All cells dead at generation #",x
             break
         world = new_world
+
+        if len(world) == last_body_count:
+            counter +=  1
+            if counter > 100:
+                print "Population stable at generation:",x - counter
+                break
+        else:
+            last_body_count = len(world)
 
     return
 

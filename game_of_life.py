@@ -46,19 +46,23 @@ def next_generation(world):
         if len(neighbours) == 2 or len(neighbours) == 3 :
             new_world.append(item)
 
+
     # Born -> =3 neighbours
-    top_left,bottom_right = find_corners(world)
+    potentials = []
 
-    for y in range( top_left[1]-1, bottom_right[1] +2 ):
+    # Get all the potentials cells where life could arise around every existing cell
+    for item in world:
+        potentials.append( [ item for item in get_all_neighbours(world, item) ] )
 
-        for x in range( top_left[0]-1, bottom_right[0] +2 ):
+    # Remove duplicates converting to set() and then back to list()
+    potentials = list ( set ( [ item2 for item in potentials for item2 in item ] ) )
 
-            if (x,y) not in world:
-                if len( get_neighbours(world, (x,y) ) ) == 3:
-                    new_world.append( (x,y) )
-                    if DEBUG:
-                        print "New cell: (",x,",",y,")"
-
+    # Add those cells with a total of 3 living cells as neighbours
+    for item in potentials:
+        if len( get_neighbours(world, item) ) == 3:
+            new_world.append( item )
+            if DEBUG:
+                print "New cell:",item
 
     if DEBUG and len(new_world) == 0:
         print "No cells survived!"
@@ -100,6 +104,33 @@ def get_neighbours(world,cell):
     # (-1,-1)
     if (cell[0]-1,cell[1]-1) in world:
         neighbours.append( (cell[0]-1,cell[1]-1) )
+
+    if DEBUG:
+            print "Neighbours of ",cell," : ",neighbours
+
+    return neighbours
+
+
+# Including empty cells
+def get_all_neighbours(world,cell):
+
+    neighbours = []
+    # (0,-1)
+    neighbours.append( (cell[0],cell[1]-1) )
+    # (1,-1)
+    neighbours.append( (cell[0]+1,cell[1]-1) )
+    # (1,0)
+    neighbours.append( (cell[0]+1,cell[1]) )
+    # (1,1)
+    neighbours.append( (cell[0]+1,cell[1]+1) )
+    # (0,1)
+    neighbours.append( (cell[0],cell[1]+1) )
+    # (-1,1)
+    neighbours.append( (cell[0]-1,cell[1]+1) )
+    # (-1,0)
+    neighbours.append( (cell[0]-1,cell[1]) )
+    # (-1,-1)
+    neighbours.append( (cell[0]-1,cell[1]-1) )
 
     if DEBUG:
             print "Neighbours of ",cell," : ",neighbours
