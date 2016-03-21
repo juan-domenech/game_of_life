@@ -52,7 +52,7 @@ def next_generation(world):
 
     # Get all the potentials cells where life could arise around every existing cell
     for item in world:
-        potentials.append( [ item for item in get_all_neighbours(world, item) ] )
+        potentials.append( [ item for item in get_all_neighbours( item ) ] )
 
     # Remove duplicates converting to set() and then back to list()
     potentials = list ( set ( [ item2 for item in potentials for item2 in item ] ) )
@@ -112,9 +112,10 @@ def get_neighbours(world,cell):
 
 
 # Including empty cells
-def get_all_neighbours(world,cell):
+def get_all_neighbours( cell ):
 
     neighbours = []
+
     # (0,-1)
     neighbours.append( (cell[0],cell[1]-1) )
     # (1,-1)
@@ -162,7 +163,6 @@ def find_corners(world):
     return top_left,bottom_right
 
 
-
 def print_world(world):
 
     # Find corners to know how big our world is
@@ -184,15 +184,21 @@ def print_world(world):
                     print "("+str(x)+","+str(y)+")\t",
             else:
                 if (x,y) in world:
+                    # Print square character
                     ex += unichr(0x2588)+" "
                 else:
-                    ex += "  "
+                    ex += ". "
         print ex
-        print
+        #print
 
     print
 
     return
+
+
+# Optionally remove distant cells to avoid gliders proliferation
+def prune(world, limit = 50):
+    return [cell for cell in world if abs(cell[0]) < limit and abs(cell[1]) < limit ]
 
 
 #http://www.conwaylife.com/wiki/Run_Length_Encoded
@@ -201,11 +207,17 @@ def import_RLE_seed(rle):
     x = y = num = 0
     world = []
     doubleJump = False
+    tripleJump = False
 
     for item in range(0, len(rle) ) :
 
         if doubleJump:
             doubleJump = False
+            #print "doubleJump False"
+            continue
+
+        if tripleJump:
+            tripleJump = False
             #print "doubleJump False"
             continue
 
@@ -216,14 +228,28 @@ def import_RLE_seed(rle):
         elif rle[item] == 'b' :
             # Dead cell
             x += 1
+        # Multiple line break
+        elif rle[item] in '0123456789' and rle[item+1] == '$':
+            y += int(rle[item])-1
+        # Jump
         elif rle[item] in '0123456789' :
-            # Jump
-            for jump in range(0, int(rle[item]) ) :
-                if rle[item+1] == 'o':
-                    world.append( (x,y) )
-                x += 1
-            #print "doubleJump True"
-            doubleJump = True
+            # Double digit
+            if rle[item+1] in '0123456789' :
+                for jump in range(0, int( rle[item]+rle[item+1] ) ) :
+                    if rle[item+2] == 'o':
+                        world.append( (x,y) )
+                    x += 1
+                #print "doubleJump True"
+                doubleJump = True
+                tripleJump = True
+            # Single digit
+            else:
+                for jump in range(0, int(rle[item]) ) :
+                    if rle[item+1] == 'o':
+                        world.append( (x,y) )
+                    x += 1
+                #print "doubleJump True"
+                doubleJump = True
 
         elif rle[item] == '$' :
             # End of line
@@ -236,8 +262,3 @@ def import_RLE_seed(rle):
             print "ERROR: Unrecognized symbol",item
 
     return world
-
-
-# Optionally remove distant cells to avoid gliders proliferation
-def prune(world, limit = 50):
-    return [cell for cell in world if abs(cell[0]) < limit and abs(cell[1]) < limit ]
