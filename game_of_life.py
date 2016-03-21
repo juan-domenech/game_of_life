@@ -1,3 +1,5 @@
+# Game of Life
+# https://www.youtube.com/watch?v=R9Plq-D1gEk
 
 # Rules
 #
@@ -67,6 +69,7 @@ def next_generation(world):
     if DEBUG and len(new_world) == 0:
         print "No cells survived!"
 
+    # Remove duplicates and sort the list to help the unitest
     new_world = sorted ( list(set( new_world )) )
 
     if DEBUG:
@@ -143,7 +146,6 @@ def find_corners(world):
     top_left =  world[0]
     bottom_right = world[0]
 
-
     for item in world:
         if item[0] < top_left[0]:
             top_left = item[0],top_left[1]
@@ -189,7 +191,6 @@ def print_world(world):
                 else:
                     ex += ". "
         print ex
-        #print
 
     print
 
@@ -203,6 +204,8 @@ def prune(world, limit = 50):
 
 #http://www.conwaylife.com/wiki/Run_Length_Encoded
 def import_RLE_seed(rle):
+
+    ### Warning! Horrible code ahead
 
     x = y = num = 0
     world = []
@@ -239,7 +242,6 @@ def import_RLE_seed(rle):
                     if rle[item+2] == 'o':
                         world.append( (x,y) )
                     x += 1
-                #print "doubleJump True"
                 doubleJump = True
                 tripleJump = True
             # Single digit
@@ -248,7 +250,6 @@ def import_RLE_seed(rle):
                     if rle[item+1] == 'o':
                         world.append( (x,y) )
                     x += 1
-                #print "doubleJump True"
                 doubleJump = True
 
         elif rle[item] == '$' :

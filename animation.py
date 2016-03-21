@@ -22,15 +22,15 @@ def life_sequence(world,sleep=1):
 
         new_world = next_generation(world)
 
-        if len(new_world) == 0:
+        if len(new_world) == 0 :
             print "All cells dead at generation #",x
             break
         world = new_world
 
         # Break once the population has been stabilized
         if len(world) == last_body_count:
-            counter +=  1
-            if counter > 100:
+            counter += 1
+            if counter > 100 :
                 print "Population stable at generation:",x - counter
                 break
         else:
@@ -70,9 +70,16 @@ def life_sequence(world,sleep=1):
 #rle='5bobo$4bo2bo$3b2o$2bo$b4o$o4bo$o2bo$o2bo$bo$2b4obo$3bo3bo$4bo$4bobo$$3b3o$3b2o$3b3o$$4bobo$4bo$3bo3bo$2b4obo$bo$o2bo$o2bo$o4bo$b4o$2bo$3b2o$4bo2bo$5bobo!'
 
 # 83P7H1V1.1 Diagonal Spaceship by M.Merzenich
-rle='12b3o$12bo$13bo2b2o$16b2o$12b2o$13b2o$12bo2bo2$14bo2bo$14bo3bo$15b3obo$20bo$2o2bobo13bo$obob2o13bo$o4bo2b2o13b2o$6bo3bo6b2o2b2o2bo$2b2o6bo6bo2bo$2b2o4bobo4b2o$9bo5bo3bo3bo$10bo2bo4b2o$11b2o3bo5bobo$15bo8b2o$15bo4bo$14bo3bo$14bo5b2o$15bo5bo!'
+#rle='12b3o$12bo$13bo2b2o$16b2o$12b2o$13b2o$12bo2bo2$14bo2bo$14bo3bo$15b3obo$20bo$2o2bobo13bo$obob2o13bo$o4bo2b2o13b2o$6bo3bo6b2o2b2o2bo$2b2o6bo6bo2bo$2b2o4bobo4b2o$9bo5bo3bo3bo$10bo2bo4b2o$11b2o3bo5bobo$15bo8b2o$15bo4bo$14bo3bo$14bo5b2o$15bo5bo!'
+
 # 1571P200H100V0A195.1 [B Type 5]
 #rle='bo$o$o3bo$4o2$8b2ob2o$8b2ob2o$4bo$2b2o$2bo$2bo$3bo3$bo$o$o3bo$4o!'
+
+# xxxP200H100V0A359
+rle='4o$o3bo$o$bo2bo3$3bo$2bo$2bo$2b2o$4bo$8b2o2b2o$8b2o2b2o2$4o$o3bo$o$bo2bo!'
+
+# 202P15H6V0A16.1 P.Tooke http://pentadecathlon.com/objects/class4/typeB/others/others.php
+#rle='22b2o10bo$5b2o2bo8b2o2bo2bo8bo4bo$5b3o9b2obo7b3o2bo5bo$b3obo11bo2b3o6bo4b2obobo7bo$obobob3obo11bobo8bobo2bobo7b2o$o3b6o6bo5bo2b2o3b4o5bo7bo$o12b2o3b3obo4bo3bobo2bo2bo5bo$bobo8b3obo5bob2ob4o3b2o9bo$12bo5b2o2bob2o$bobo8b3obo5bob2ob4o3b2o9bo$o12b2o3b3obo4bo3bobo2bo2bo5bo$o3b6o6bo5bo2b2o3b4o5bo7bo$obobob3obo11bobo8bobo2bobo7b2o$b3obo11bo2b3o6bo4b2obobo7bo$5b3o9b2obo7b3o2bo5bo$5b2o2bo8b2o2bo2bo8bo4bo$22b2o10bo!'
 
 world = import_RLE_seed(rle)
 print_world(world)
