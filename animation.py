@@ -1,7 +1,7 @@
 import time
 import os
 
-from game_of_life import next_generation, print_world, import_RLE_seed, prune
+from game_of_life import next_generation, print_world, import_RLE_seed, prune, flip_world_horizontal, shift_world_vertical
 
 def life_sequence(world,sleep=1):
 
@@ -75,7 +75,7 @@ def life_sequence(world,sleep=1):
 # 1571P200H100V0A195.1 [B Type 5]
 #rle='bo$o$o3bo$4o2$8b2ob2o$8b2ob2o$4bo$2b2o$2bo$2bo$3bo3$bo$o$o3bo$4o!'
 
-# xxxP200H100V0A359
+# xxxP200H100V0A359 http://pentadecathlon.com/objects/class4/typeB/Bheptomino/bHeptomino.php
 rle='4o$o3bo$o$bo2bo3$3bo$2bo$2bo$2b2o$4bo$8b2o2b2o$8b2o2b2o2$4o$o3bo$o$bo2bo!'
 
 # 202P15H6V0A16.1 P.Tooke http://pentadecathlon.com/objects/class4/typeB/others/others.php
@@ -83,5 +83,13 @@ rle='4o$o3bo$o$bo2bo3$3bo$2bo$2bo$2b2o$4bo$8b2o2b2o$8b2o2b2o2$4o$o3bo$o$bo2bo!'
 
 world = import_RLE_seed(rle)
 print_world(world)
+
+world = flip_world_horizontal(world)
+print_world(world)
+
+world = shift_world_vertical(world,20)
+print_world(world)
+
+world += import_RLE_seed(rle)
 
 life_sequence(world,sleep=0)

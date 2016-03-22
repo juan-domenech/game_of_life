@@ -197,6 +197,26 @@ def print_world(world):
     return
 
 
+def print_world_HTML(world,generation):
+
+    x_center = 600
+    y_center = 200
+    pixels = 5
+    rectangle = 4
+
+    # Find corners to know how big our world is
+    top_left,bottom_right = find_corners(world)
+
+    #print '<!-- World: Population:',len(world),'  X-Axis Size:', abs(top_left[0]) + abs(bottom_right[0]+1),'  Y-Axis Size:', abs(top_left[1]) + abs(bottom_right[1]+1),' Corner Top-Left:',top_left,'Corner Bottom-Right:',bottom_right,'-->'
+
+    print '<text x="2" y="20" class="svgText">Generation #'+str(generation)+' Population:'+str(len(world))+' cells   X-Axis-Size:'+str(abs(top_left[0]))+'   Y-Axis-Size:'+str(abs(top_left[1]) + abs(bottom_right[1]+1))+'  Corner Top-Left '+str(top_left)+' Corner Bottom-Right '+str(bottom_right)+'</text>'
+
+    for item in world:
+        print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(rectangle)+'" height="'+str(rectangle)+'" fill="black"/>'
+
+    return
+
+
 # Optionally remove distant cells to avoid gliders proliferation
 def prune(world, limit = 50):
     return [cell for cell in world if abs(cell[0]) < limit and abs(cell[1]) < limit ]
@@ -263,3 +283,16 @@ def import_RLE_seed(rle):
             print "ERROR: Unrecognized symbol",item
 
     return world
+
+
+def flip_world_horizontal(world):
+    new_world = []
+    for item in world:
+        new_world.append( (item[0]* -1, item[1] ) )
+    return new_world
+
+def shift_world_vertical(world, shift):
+    new_world = []
+    for item in world:
+        new_world.append( (item[0], item[1]+shift ) )
+    return new_world
