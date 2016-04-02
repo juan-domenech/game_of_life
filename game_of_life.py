@@ -196,24 +196,82 @@ def print_world(world):
     return
 
 
-def print_world_HTML(world,generation):
+def print_world_HTML(world, generation):
 
+    # Center of our SVG canvas: '<svg width="1400" height="600">'
     x_center = 600
-    y_center = 200
+    y_center = 300
+    # Square total side length
     pixels = 5
-    rectangle = 4
+    # Square visual side length
+    square = 4
 
-    # Find corners to know how big our world is
+    # Find corners to know how big our world is (just needed for the information bar)
     top_left,bottom_right = find_corners(world)
 
     # Print information bar
     print '<text x="2" y="20" class="svgText">Generation #'+str(generation)+'  Population:'+str(len(world))+' cells   X-Axis-Size:'+str(abs(top_left[0]))+'   Y-Axis-Size:'+str(abs(top_left[1]) + abs(bottom_right[1]+1))+'  Corner Top-Left '+str(top_left)+'  Corner Bottom-Right '+str(bottom_right)+'  Rate:100ms</text>'
 
-    # Loop over all the current alive cells and convert them into SVG rectangles
+    # Loop over all the current alive cells and convert them into SVG squares
     for item in world:
-        print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(rectangle)+'" height="'+str(rectangle)+'" fill="black"/>'
+        print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="black"/>'
 
     return
+
+
+def print_world_HTML_with_retracing(world, generation):
+
+    # Center of our SVG canvas: '<svg width="1400" height="600">'
+    x_center = 600
+    y_center = 200
+    # Square total side length
+    pixels = 5
+    # Square visual side length
+    square = 4
+
+    # Find corners to know how big our world is (just needed for the information bar)
+    #top_left,bottom_right = find_corners(world)
+
+    # Print information bar
+    #print '<text x="2" y="20" class="svgText">Generation #'+str(generation)+'  Population:'+str(len(world))+' cells   X-Axis-Size:'+str(abs(top_left[0]))+'   Y-Axis-Size:'+str(abs(top_left[1]) + abs(bottom_right[1]+1))+'  Corner Top-Left '+str(top_left)+'  Corner Bottom-Right '+str(bottom_right)+'  Rate:100ms</text>'
+
+    # Loop over all the current alive cells and convert them into SVG squares
+
+    for item in world[0]:
+        print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="#0000ca"/>'
+
+    for item in world[1]:
+        print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="#0040ff"/>'
+
+    for item in world[2]:
+        print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="#00b5ff"/>'
+
+    for item in world[3]:
+        print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="#2bffd3"/>'
+
+    for item in world[4]:
+        print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="#9fff5e"/>'
+
+    for item in world[5]:
+        print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="#ffeb00"/>'
+
+    for item in world[6]:
+        print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="#ff7700"/>'
+
+    for item in world[7]:
+        print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="#ff0300"/>'
+
+    for item in world[8]:
+        print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="#8b0000"/>'
+
+    for item in world[9]:
+        print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="white"/>'
+
+
+    return
+
+
+
 
 
 # Optionally remove distant cells to avoid gliders proliferation
