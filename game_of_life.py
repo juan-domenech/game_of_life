@@ -219,7 +219,7 @@ def print_world_HTML(world, generation):
     return
 
 
-def print_world_HTML_with_retracing(world, generation):
+def print_world_HTML_with_retracing(world, generation, palette):
 
     # Center of our SVG canvas: '<svg width="1400" height="600">'
     x_center = 600
@@ -230,48 +230,53 @@ def print_world_HTML_with_retracing(world, generation):
     square = 4
 
     # Find corners to know how big our world is (just needed for the information bar)
-    #top_left,bottom_right = find_corners(world)
+    top_left,bottom_right = find_corners(world[9])
 
     # Print information bar
-    #print '<text x="2" y="20" class="svgText">Generation #'+str(generation)+'  Population:'+str(len(world))+' cells   X-Axis-Size:'+str(abs(top_left[0]))+'   Y-Axis-Size:'+str(abs(top_left[1]) + abs(bottom_right[1]+1))+'  Corner Top-Left '+str(top_left)+'  Corner Bottom-Right '+str(bottom_right)+'  Rate:100ms</text>'
+    print '<rect x="2" y="5" width="900" height="20" fill="black"/>'
+    print '<text x="2" y="20" class="svgText" fill="white">Generation #'+str(generation)+'  Population:'+str(len(world))+' cells   X-Axis-Size:'+str(abs(top_left[0]))+'   Y-Axis-Size:'+str(abs(top_left[1]) + abs(bottom_right[1]+1))+'  Corner Top-Left '+str(top_left)+'  Corner Bottom-Right '+str(bottom_right)+'  Rate:100ms</text>'
 
     # Loop over all the current alive cells and convert them into SVG squares
-
-    for item in world[0]:
-        print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="#0000ca"/>'
-
-    for item in world[1]:
-        print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="#0040ff"/>'
-
-    for item in world[2]:
-        print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="#00b5ff"/>'
-
-    for item in world[3]:
-        print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="#2bffd3"/>'
-
-    for item in world[4]:
-        print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="#9fff5e"/>'
-
-    for item in world[5]:
-        print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="#ffeb00"/>'
-
-    for item in world[6]:
-        print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="#ff7700"/>'
-
-    for item in world[7]:
-        print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="#ff0300"/>'
+    for item in world[9]:
+        print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="'+palette[0]+'"/>'
 
     for item in world[8]:
-        print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="#8b0000"/>'
+        if item not in world[9] :
+            print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="'+palette[1]+'"/>'
 
-    for item in world[9]:
-        print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="white"/>'
+    for item in world[7]:
+        if item not in world[9] and item not in world[8] :
+            print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="'+palette[2]+'"/>'
 
+    for item in world[6]:
+        if item not in world[9] and item not in world[8] and item not in world[7] :
+            print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="'+palette[3]+'"/>'
+
+    for item in world[5]:
+        if item not in world[9] and item not in world[8] and item not in world[7] and item not in world[6] :
+            print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="'+palette[4]+'"/>'
+
+    for item in world[4]:
+        if item not in world[9] and item not in world[8] and item not in world[7] and item not in world[6] and item not in world[5] :
+            print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="'+palette[5]+'"/>'
+
+    for item in world[3]:
+        if item not in world[9] and item not in world[8] and item not in world[7] and item not in world[6] and item not in world[5] and item not in world[4] :
+            print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="'+palette[6]+'"/>'
+
+    for item in world[2]:
+        if item not in world[9] and item not in world[8] and item not in world[7] and item not in world[6] and item not in world[5] and item not in world[4] and item not in world[3] :
+            print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="'+palette[7]+'"/>'
+
+    for item in world[1]:
+        if item not in world[9] and item not in world[8] and item not in world[7] and item not in world[6] and item not in world[5] and item not in world[4] and item not in world[3] and item not in world[2] :
+            print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="'+palette[8]+'"/>'
+
+    for item in world[0]:
+        if item not in world[9] and item not in world[8] and item not in world[7] and item not in world[6] and item not in world[5] and item not in world[4] and item not in world[3] and item not in world[2] and item not in world[1] :
+            print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="'+palette[9]+'"/>'
 
     return
-
-
-
 
 
 # Optionally remove distant cells to avoid gliders proliferation

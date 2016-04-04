@@ -3,8 +3,10 @@ from game_of_life import next_generation, print_world_HTML_with_retracing
 
 def life_sequence(world,sleep=1):
 
+    palette = ['white','#8b0000','#ff0300','#ff7700','#ffeb00','#9fff5e','#2bffd3','#00b5ff','#0040ff','#0000ca','spectrogram palette']
+
     print '<!DOCTYPE html><html><head><title>Game of Life animation generated with Python and HTML5/SVG</title>'
-    #print '<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Dosis">'
+    print '<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Dosis">'
     print '<link rel="image_src" href="https://www.doc.ic.ac.uk/project/examples/2012/163/g1216326/img/gameoflife.png"/>'
     print '<style>.generations{ display: block } .svgText { font-family: Dosis; font-size: 1em;}'
     print '</style></head><body>'
@@ -21,12 +23,15 @@ def life_sequence(world,sleep=1):
     print '<div id="generation-0" class="generations">'
     print '<svg width="1200" height="600" style="background: black">'
 
-    for generation in range(1,1000):
+    print
 
-        # print '<div id="generation_'+str(generation)+'" class="generations">'
-        # print '<svg width="1400" height="600">'
+    print '<!-- Palette -->'
+    for item in range(0,10):
+        print '<rect x='+str((20*item)+10)+' y="570" width="20" height="20" fill="'+palette[item]+'"/>'
 
-        print_world_HTML_with_retracing(world, generation)
+    for generation in range(1,200):
+
+        print_world_HTML_with_retracing(world, generation, palette)
 
         world.pop(0)
 
@@ -78,4 +83,3 @@ world.pop(0)
 world.append(seed)
 
 life_sequence(world,sleep=0)
-
