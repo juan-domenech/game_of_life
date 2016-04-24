@@ -41,10 +41,10 @@ class test_game_of_life(unittest.TestCase):
         self.assertEquals( next_generation( sorted ( [(0, 1), (0, 2), (1, 1), (1, 2), (2, 1), (2, 2), (3, 1), (3, 2), (3, 3), (5, -1), (5, 5), (6, -1), (6, 5), (7, -1), (7, 5), (9, 1), (9, 2), (9, 3)] ) ) , sorted( [(0, 1), (0, 2), (1, 0), (1, 3), (2, 0), (3, 1), (3, 3), (4, 2), (6, -2), (6, -1), (6, 0), (6, 4), (6, 5), (6, 6), (8, 2), (9, 2), (10, 2)] ) )
 
     # Die Hard (Step 128)
-    def test(self):
-        self.assertEquals( next_generation( [(0,0),(1,1),(2,1)] ) , [] )
+    # def test(self):
+    #     self.assertEquals( next_generation( [(0,0),(1,1),(2,1)] ) , [] )
 
     # Die Hard (Step 129) Two vertical cells together that dies
-    def test(self):
-        self.assertEquals( next_generation( [(0,0),(0,1)] ) , [] )
+    #def test(self):
+    #    self.assertEquals( next_generation( [(0,0),(0,1)] ) , [] )
 
