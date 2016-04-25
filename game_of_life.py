@@ -225,16 +225,12 @@ def print_world_HTML_with_retracing(world, generation, palette):
     x_center = 600
     y_center = 200
     # Square total side length
-    pixels = 5
+    pixels = 10
     # Square visual side length
-    square = 4
+    square = 8
 
     # Find corners to know how big our world is (just needed for the information bar)
-    top_left,bottom_right = find_corners(world[9])
-
-    # Print information bar
-    print '<rect x="2" y="5" width="900" height="20" fill="black"/>'
-    print '<text x="2" y="20" class="svgText" fill="white">Generation #'+str(generation)+'  Population:'+str(len(world[9]))+' cells   X-Axis-Size:'+str(abs(top_left[0])+abs(bottom_right[0]))+'   Y-Axis-Size:'+str(abs(top_left[1]) + abs(bottom_right[1]+1))+'  Corner Top-Left '+str(top_left)+'  Corner Bottom-Right '+str(bottom_right)+'  Rate:100ms</text>'
+    #top_left,bottom_right = find_corners(world[9])
 
     # Loop over all the current alive cells and convert them into SVG squares
     for item in world[9]:
@@ -305,6 +301,13 @@ def print_world_HTML_with_retracing(world, generation, palette):
             y = (item[1]*pixels)+y_center
             if x > 0 and x < 1200 and y > 0 and y < 600 :
                 print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="'+palette[9]+'"/>'
+
+
+    # Print information bar
+    print '<rect x="2" y="5" width="900" height="20" fill="black"/>'
+    #print '<text x="2" y="30" class="svgText" fill="white">Generation #'+str(generation)+'  Population:'+str(len(world[9]))+' cells   X-Axis-Size:'+str(abs(top_left[0])+abs(bottom_right[0]))+'   Y-Axis-Size:'+str(abs(top_left[1]) + abs(bottom_right[1]+1))+'  Corner Top-Left '+str(top_left)+'  Corner Bottom-Right '+str(bottom_right)+'  Rate:100ms</text>'
+    print '<text x="10" y="30" class="svgTextBold" fill="white">Seed pattern: "Rabbits"  Generation: #'+str(generation)+'  Population: '+str(len(world[9]))+' cells   Rate: 200ms</text>'
+    print '<text x="10" y="30" class="svgText" fill="white">Seed pattern: "Rabbits"  Generation: #'+str(generation)+'  Population: '+str(len(world[9]))+' cells   Rate: 200ms</text>'
 
     return
 

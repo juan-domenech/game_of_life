@@ -57,7 +57,7 @@ def life_sequence(world,sleep=1):
 # Acorn http://pentadecathlon.com/lifeNews/2005/02/new_methuselah_records.html
 #rle='bo$3bo$2o2b3o!'
 
-# Rabits http://pentadecathlon.com/lifeNews/methuselahs/
+# Rabbits http://pentadecathlon.com/lifeNews/methuselahs/
 #rle='o3b3o$3o2bo$bo!'
 
 # Diagonal Spacehip by N.Beluchenko http://pentadecathlon.com/objects/spaceships/small/smallest.php
