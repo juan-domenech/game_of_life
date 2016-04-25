@@ -221,9 +221,12 @@ def print_world_HTML(world, generation):
 
 def print_world_HTML_with_retracing(world, generation, palette):
 
-    # Center of our SVG canvas: '<svg width="1400" height="600">'
+    # Canvas size
+    x_size = 1260
+    y_size = 630
+    # Center of our SVG canvas: '<svg width="1260" height="630">'
     x_center = 600
-    y_center = 200
+    y_center = 280
     # Square total side length
     pixels = 10
     # Square visual side length
@@ -236,78 +239,76 @@ def print_world_HTML_with_retracing(world, generation, palette):
     for item in world[9]:
         x = (item[0]*pixels)+x_center
         y = (item[1]*pixels)+y_center
-        if x > 0 and x < 1200 and y > 0 and y < 600 :
+        if x > 0 and x < x_size and y > 0 and y < y_size :
             print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="'+palette[0]+'"/>'
 
     for item in world[8]:
         if item not in world[9]:
             x = (item[0]*pixels)+x_center
             y = (item[1]*pixels)+y_center
-            if x > 0 and x < 1200 and y > 0 and y < 600 :
+            if x > 0 and x < x_size and y > 0 and y < y_size :
                 print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="'+palette[1]+'"/>'
 
     for item in world[7]:
         if item not in world[9] and item not in world[8] :
             x = (item[0]*pixels)+x_center
             y = (item[1]*pixels)+y_center
-            if x > 0 and x < 1200 and y > 0 and y < 600 :
+            if x > 0 and x < x_size and y > 0 and y < y_size :
                 print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="'+palette[2]+'"/>'
 
     for item in world[6]:
         if item not in world[9] and item not in world[8] and item not in world[7] :
             x = (item[0]*pixels)+x_center
             y = (item[1]*pixels)+y_center
-            if x > 0 and x < 1200 and y > 0 and y < 600 :
+            if x > 0 and x < x_size and y > 0 and y < y_size :
                 print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="'+palette[3]+'"/>'
 
     for item in world[5]:
         if item not in world[9] and item not in world[8] and item not in world[7] and item not in world[6] :
             x = (item[0]*pixels)+x_center
             y = (item[1]*pixels)+y_center
-            if x > 0 and x < 1200 and y > 0 and y < 600 :
+            if x > 0 and x < x_size and y > 0 and y < y_size :
                 print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="'+palette[4]+'"/>'
 
     for item in world[4]:
         if item not in world[9] and item not in world[8] and item not in world[7] and item not in world[6] and item not in world[5] :
             x = (item[0]*pixels)+x_center
             y = (item[1]*pixels)+y_center
-            if x > 0 and x < 1200 and y > 0 and y < 600 :
+            if x > 0 and x < x_size and y > 0 and y < y_size :
                 print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="'+palette[5]+'"/>'
 
     for item in world[3]:
         if item not in world[9] and item not in world[8] and item not in world[7] and item not in world[6] and item not in world[5] and item not in world[4] :
             x = (item[0]*pixels)+x_center
             y = (item[1]*pixels)+y_center
-            if x > 0 and x < 1200 and y > 0 and y < 600 :
+            if x > 0 and x < x_size and y > 0 and y < y_size :
                 print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="'+palette[6]+'"/>'
 
     for item in world[2]:
         if item not in world[9] and item not in world[8] and item not in world[7] and item not in world[6] and item not in world[5] and item not in world[4] and item not in world[3] :
             x = (item[0]*pixels)+x_center
             y = (item[1]*pixels)+y_center
-            if x > 0 and x < 1200 and y > 0 and y < 600 :
+            if x > 0 and x < x_size and y > 0 and y < y_size :
                 print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="'+palette[7]+'"/>'
 
     for item in world[1]:
         if item not in world[9] and item not in world[8] and item not in world[7] and item not in world[6] and item not in world[5] and item not in world[4] and item not in world[3] and item not in world[2] :
             x = (item[0]*pixels)+x_center
             y = (item[1]*pixels)+y_center
-            if x > 0 and x < 1200 and y > 0 and y < 600 :
+            if x > 0 and x < x_size and y > 0 and y < y_size :
                 print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="'+palette[8]+'"/>'
 
     for item in world[0]:
         if item not in world[9] and item not in world[8] and item not in world[7] and item not in world[6] and item not in world[5] and item not in world[4] and item not in world[3] and item not in world[2] and item not in world[1] :
             x = (item[0]*pixels)+x_center
             y = (item[1]*pixels)+y_center
-            if x > 0 and x < 1200 and y > 0 and y < 600 :
+            if x > 0 and x < x_size and y > 0 and y < y_size :
                 print '<rect x="'+str((item[0]*pixels)+x_center)+'" y="'+str((item[1]*pixels)+y_center)+'" width="'+str(square)+'" height="'+str(square)+'" fill="'+palette[9]+'"/>'
 
 
     # Print information bar
-    print '<rect x="2" y="5" width="900" height="20" fill="black"/>'
-    #print '<text x="2" y="30" class="svgText" fill="white">Generation #'+str(generation)+'  Population:'+str(len(world[9]))+' cells   X-Axis-Size:'+str(abs(top_left[0])+abs(bottom_right[0]))+'   Y-Axis-Size:'+str(abs(top_left[1]) + abs(bottom_right[1]+1))+'  Corner Top-Left '+str(top_left)+'  Corner Bottom-Right '+str(bottom_right)+'  Rate:100ms</text>'
-    print '<text x="10" y="30" class="svgTextBold" fill="white">Seed pattern: "Rabbits"  Generation: #'+str(generation)+'  Population: '+str(len(world[9]))+' cells   Rate: 200ms</text>'
-    print '<text x="10" y="30" class="svgText" fill="white">Seed pattern: "Rabbits"  Generation: #'+str(generation)+'  Population: '+str(len(world[9]))+' cells   Rate: 200ms</text>'
+    print '<text x="10" y="30" class="svgTextBold" fill="white">Seed pattern: "Rabbits"  Generation: #'+str(generation)+'  Population: '+str(len(world[9]))+' cells   Rate: 100ms</text>'
+    print '<text x="10" y="30" class="svgText" fill="white">Seed pattern: "Rabbits"  Generation: #'+str(generation)+'  Population: '+str(len(world[9]))+' cells   Rate: 100ms</text>'
 
     return
 

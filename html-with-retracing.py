@@ -1,15 +1,15 @@
 
 from game_of_life import next_generation, print_world_HTML_with_retracing, import_RLE_seed
 
-generations = 2000
+generations = 3000
+rate = 100
 
 def life_sequence(world,sleep=1):
 
     palette = ['white','#8b0000','#ff0300','#ff7700','#ffeb00','#9fff5e','#2bffd3','#00b5ff','#0040ff','#0000ca','spectrogram palette']
 
     print '<!DOCTYPE html><html><head><title>Game of Life animation generated with Python and HTML5/SVG</title>'
-    #print '<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Dosis">'
-    print '<link rel="image_src" href="https://www.doc.ic.ac.uk/project/examples/2012/163/g1216326/img/gameoflife.png"/>'
+    print '<link rel="image_src" href="http://juan-domenech.github.io/sandbox/python/game-of-life/seed-rabbits-3000-generations.png"/>'
     print '<style>.generations{ display: none } '
     print '.svgText { font-family: Courier New; font-size: 25px; fill: white;}'
     print '.svgTextBold { font-family: Courier New; font-size: 25px; font-weight: bold; fill: black;}'
@@ -17,30 +17,16 @@ def life_sequence(world,sleep=1):
     print
     print '<!--'
     print 'Game of Life animation generated with Python and HTML5/SVG'
-    print 'Seed (based on seed "Rabbits"):'
-    print 'rle="o3b3o$3o2bo$bo!"'
+    print 'Seed "Rabbits": rle="o3b3o$3o2bo$bo!"'
     print
     print 'https://github.com/juan-domenech/game_of_life/'
     print '-->'
     print
 
-    # print '<div id="generation-0" class="generations">'
-    # print '<svg width="1200" height="600" style="background: black">'
-
-    print
-
-    # print '<!-- Palette -->'
-    # for item in range(0,10):
-    #     print '<rect x='+str((20*item)+10)+' y="570" width="20" height="20" fill="'+palette[item]+'"/>'
-
     for generation in range(1, generations):
 
         print '<div id="generation_'+str(generation)+'" class="generations">'
-        print '<svg width="1250" height="600" style="background: black">'
-
-        # # Print information bar
-        # print '<rect x="2" y="5" width="900" height="20" fill="black"/>'
-        # print '<text x="2" y="30" class="svgText" fill="white">Generation #'+str(generation)+'  Population:'+str(len(world[9]))+' cells   X-Axis-Size:'+str(abs(top_left[0])+abs(bottom_right[0]))+'   Y-Axis-Size:'+str(abs(top_left[1]) + abs(bottom_right[1]+1))+'  Corner Top-Left '+str(top_left)+'  Corner Bottom-Right '+str(bottom_right)+'  Rate:100ms</text>'
+        print '<svg width="1260" height="630" style="background: black">'
 
         print_world_HTML_with_retracing(world, generation, palette)
 
@@ -48,24 +34,25 @@ def life_sequence(world,sleep=1):
 
         world.append(next_generation(world[8]))
 
-        # print '<!-- -->'
         # print '<!-- Palette -->'
         for item in range(0,10):
-            print '<rect x='+str((30*item)+10)+' y="560" width="30" height="30" fill="'+palette[item]+'"/>'
+            print '<rect x='+str((30*item)+10)+' y="590" width="30" height="30" fill="'+palette[item]+'"/>'
+        # print '<!-- -->'
 
         print '<script type="text/javascript">'
-        print 'setTimeout(function(){var elem=document.getElementById("generation_'+str(generation)+'");elem.parentNode.removeChild(elem);},'+str(200 * generation)+');'
-        print 'setTimeout(function(){document.getElementById("generation_'+str(generation+1)+'").style.display="block";},'+str(200 * generation)+');'
+        print 'setTimeout(function(){var elem=document.getElementById("generation_'+str(generation)+'");elem.parentNode.removeChild(elem);},'+str(rate * generation)+');'
+        print 'setTimeout(function(){document.getElementById("generation_'+str(generation+1)+'").style.display="block";},'+str(rate * generation)+');'
         print '</script>'
 
         print '</div></svg>'
 
 
+    # Print last world and leave it static
     print '<div id="generation_'+str(generations)+'" class="generations">'
-    print '<svg width="1250" height="600" style="background: black">'
+    print '<svg width="1260" height="630" style="background: black">'
 
     for item in range(0,10):
-        print '<rect x='+str((30*item)+10)+' y="560" width="30" height="30" fill="'+palette[item]+'"/>'
+        print '<rect x='+str((30*item)+10)+' y="590" width="30" height="30" fill="'+palette[item]+'"/>'
 
     print_world_HTML_with_retracing(world, generations, palette)
 
