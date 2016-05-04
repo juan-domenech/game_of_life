@@ -44,4 +44,9 @@ Generation #1 seed:
 https://juan-domenech.github.io/sandbox/python/game-of-life/two-puffers-opposite-direction-1150generations.html
 
 
+#### Seed 'Rabbits' (3000 Generations)
+
+![Rabbits](http://juan-domenech.github.io/sandbox/python/game-of-life/seed-rabbits-3000-generations.png)
+
+https://juan-domenech.github.io/sandbox/python/game-of-life/rabbits-3000-generations.html
 
